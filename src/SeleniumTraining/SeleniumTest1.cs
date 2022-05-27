@@ -10,23 +10,23 @@ namespace SeleniumTraining
         [Fact]
         public void ChromeSession()
         {
-            var driver = new ChromeDriver();
+            IWebDriver driver = new ChromeDriver();
 
             driver.Navigate().GoToUrl("https://google.com");
 
-            var title = driver.Title;
+            string title = driver.Title;
             Assert.Equal("Google", title);
 
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromMilliseconds(500);
 
-            var searchBox = driver.FindElement(By.Name("q"));
-            var searchButton = driver.FindElement(By.Name("btnK"));
+            IWebElement searchBox = driver.FindElement(By.Name("q"));
+            IWebElement searchButton = driver.FindElement(By.Name("btnK"));
 
             searchBox.SendKeys("Selenium");
             searchButton.Click();
 
             searchBox = driver.FindElement(By.Name("q"));
-            var value = searchBox.GetAttribute("value");
+            string value = searchBox.GetAttribute("value");
             Assert.Equal("Selenium", value);
 
             driver.Quit();
