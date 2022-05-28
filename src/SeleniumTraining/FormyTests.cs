@@ -98,5 +98,31 @@ namespace SeleniumTraining
 
             Assert.Equal("12/12/2021", dateInput.GetAttribute("value"));
         }
+
+        [Fact]
+        [Trait("Exercise", "https://www.linkedin.com/learning/selenium-essential-training/date-pickers")]
+        public void Datepicker()
+        {
+            driver.Navigate().GoToUrl("https://formy-project.herokuapp.com/datepicker");
+            IWebElement dateInput = FindElementById("datepicker");
+            string dateFormat = dateInput.GetAttribute("placeholder");
+            string today = DateTime.Today.ToString(dateFormat.ToMDYdateFormat());
+
+            dateInput.SendKeys(today);
+            dateInput.SendKeys(Keys.Return);//Keys.Enter also works
+
+            Assert.Equal(today, dateInput.GetAttribute("value"));
+        }
+    }
+
+    public static class StringExtensions
+    {
+        public const string MDY = "MM/dd/yyyy";
+
+        public static string ToMDYdateFormat(this string format)
+        {
+            if (string.IsNullOrEmpty(format)) return StringExtensions.MDY;
+            else return format.ToLower().Replace("mm", "MM");
+        }
     }
 }
