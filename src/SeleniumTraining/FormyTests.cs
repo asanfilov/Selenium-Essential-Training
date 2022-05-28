@@ -49,5 +49,26 @@ namespace SeleniumTraining
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("arguments[0].click();", closeButton);
         }
+
+        [Fact]
+        [Trait("Exercise", "https://www.linkedin.com/learning/selenium-essential-training/keyboard-and-mouse-input")]
+        public void KeyboardAndMouseInput()
+        {
+            driver.Navigate().GoToUrl("https://formy-project.herokuapp.com/keypress");
+            IWebElement nameInput = driver.FindElement(By.Id("name"));
+
+            nameInput.Click();
+            nameInput.SendKeys("Doe, John");
+            System.Threading.Thread.Sleep(1_000);
+            nameInput.Clear();
+            nameInput.SendKeys("John Doe");
+
+            IWebElement button = driver.FindElement(By.Id("button"));
+            button.Click();
+
+            nameInput = driver.FindElement(By.Id("name"));
+            Assert.Equal("", nameInput.Text);
+            Assert.Equal("John Doe", nameInput.GetAttribute("value"));
+        }
     }
 }
