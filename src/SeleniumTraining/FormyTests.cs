@@ -1,6 +1,7 @@
 ﻿using System;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Interactions;
 using Xunit;
 using static System.Threading.Thread;
 
@@ -79,6 +80,23 @@ namespace SeleniumTraining
             nameInput = FindElementById("name");
             Assert.Equal("", nameInput.Text);
             Assert.Equal("John Doe", nameInput.GetAttribute("value"));
+        }
+
+        [Fact]
+        [Trait("Exercise", "https://www.linkedin.com/learning/selenium-essential-training/scroll")]
+        public void ScrollToElement()
+        {
+            driver.Navigate().GoToUrl("https://formy-project.herokuapp.com/scroll");
+            IWebElement nameInput = FindElementById("name");
+            IWebElement dateInput = FindElementById("date");
+            Sleep(2_000);
+
+            Actions actions = new Actions(driver);
+            actions.MoveToElement(nameInput);
+            nameInput.SendKeys("John Doe");
+            dateInput.SendKeys("12/12/2021");
+
+            Assert.Equal("12/12/2021", dateInput.GetAttribute("value"));
         }
     }
 }
