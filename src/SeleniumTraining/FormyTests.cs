@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Interactions;
@@ -112,6 +113,23 @@ namespace SeleniumTraining
             dateInput.SendKeys(Keys.Return);//Keys.Enter also works
 
             Assert.Equal(today, dateInput.GetAttribute("value"));
+        }
+
+        [Fact]
+        [Trait("Exercise", "https://www.linkedin.com/learning/selenium-essential-training/dropdown-menus")]
+        public void Dropdown_option_can_be_selected()
+        {
+            driver.Navigate().GoToUrl("https://formy-project.herokuapp.com/dropdown");
+            IWebElement dropDown = FindElementById("dropdownMenuButton");
+
+            dropDown.Click();
+            //Watch 'Using wildcards' exercise at 0:45
+            var options = driver.FindElements(By.CssSelector("div.dropdown-menu.show a"));
+            Assert.Equal(15, options.Count);
+            IWebElement selected = options.First(o => o.Text.Equals("Key and Mouse Press"));
+            selected.Click();
+
+            Assert.Equal("https://formy-project.herokuapp.com/keypress", driver.Url);
         }
     }
 
