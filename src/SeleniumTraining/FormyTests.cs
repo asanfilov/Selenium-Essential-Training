@@ -2,6 +2,7 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using Xunit;
+using static System.Threading.Thread;
 
 namespace SeleniumTraining
 {
@@ -16,7 +17,7 @@ namespace SeleniumTraining
 
         public void Dispose()
         {
-            System.Threading.Thread.Sleep(2_000);
+            Sleep(2_000);
             driver.Quit();
         }
 
@@ -35,10 +36,10 @@ namespace SeleniumTraining
         {
             driver.Navigate().GoToUrl("https://formy-project.herokuapp.com/switch-window");
             IWebElement openAlert = FindElementById("alert-button");
-            System.Threading.Thread.Sleep(1_000);
+            Sleep(1_000);
             openAlert.Click();
 
-            System.Threading.Thread.Sleep(2_000);//add a pause to see what the test does
+            Sleep(2_000);//add a pause to see what the test does
             IAlert alert = driver.SwitchTo().Alert();
             alert.Accept();
         }
@@ -50,7 +51,7 @@ namespace SeleniumTraining
             driver.Navigate().GoToUrl("https://formy-project.herokuapp.com/modal");
 
             IWebElement modalButton = FindElementById("modal-button");
-            System.Threading.Thread.Sleep(1_000);
+            Sleep(1_000);
             modalButton.Click();
 
             IWebElement closeButton = FindElementById("close-button");
@@ -68,7 +69,7 @@ namespace SeleniumTraining
 
             nameInput.Click();
             nameInput.SendKeys("Doe, John");
-            System.Threading.Thread.Sleep(1_000);
+            Sleep(1_000);
             nameInput.Clear();
             nameInput.SendKeys("John Doe");
 
