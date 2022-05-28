@@ -20,12 +20,21 @@ namespace SeleniumTraining
             driver.Quit();
         }
 
+        #region Helper methods
+
+        private IWebElement FindElementById(string id)
+        {
+            return driver.FindElement(By.Id(id));
+        }
+
+        #endregion Helper methods
+
         [Fact]
         [Trait("Exercise", "Shows how to click a button in alert https://www.linkedin.com/learning/selenium-essential-training/switch-to-alert")]
         public void SwitchToAlert()
         {
             driver.Navigate().GoToUrl("https://formy-project.herokuapp.com/switch-window");
-            IWebElement openAlert = driver.FindElement(By.Id("alert-button"));
+            IWebElement openAlert = FindElementById("alert-button");
             System.Threading.Thread.Sleep(1_000);
             openAlert.Click();
 
@@ -40,11 +49,11 @@ namespace SeleniumTraining
         {
             driver.Navigate().GoToUrl("https://formy-project.herokuapp.com/modal");
 
-            IWebElement modalButton = driver.FindElement(By.Id("modal-button"));
+            IWebElement modalButton = FindElementById("modal-button");
             System.Threading.Thread.Sleep(1_000);
             modalButton.Click();
 
-            IWebElement closeButton = driver.FindElement(By.Id("close-button"));
+            IWebElement closeButton = FindElementById("close-button");
             //closeButton.Click(); //will throw OpenQA.Selenium.ElementNotInteractableException
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("arguments[0].click();", closeButton);
@@ -55,7 +64,7 @@ namespace SeleniumTraining
         public void KeyboardAndMouseInput()
         {
             driver.Navigate().GoToUrl("https://formy-project.herokuapp.com/keypress");
-            IWebElement nameInput = driver.FindElement(By.Id("name"));
+            IWebElement nameInput = FindElementById("name");
 
             nameInput.Click();
             nameInput.SendKeys("Doe, John");
@@ -63,10 +72,10 @@ namespace SeleniumTraining
             nameInput.Clear();
             nameInput.SendKeys("John Doe");
 
-            IWebElement button = driver.FindElement(By.Id("button"));
+            IWebElement button = FindElementById("button");
             button.Click();
 
-            nameInput = driver.FindElement(By.Id("name"));
+            nameInput = FindElementById("name");
             Assert.Equal("", nameInput.Text);
             Assert.Equal("John Doe", nameInput.GetAttribute("value"));
         }
