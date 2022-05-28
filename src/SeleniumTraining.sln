@@ -7,6 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeleniumTraining", "Seleniu
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{512CE785-C7DB-4302-98F4-BA36055672D2}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		..\Tutorial.MD = ..\Tutorial.MD
 	EndProjectSection
 EndProject
