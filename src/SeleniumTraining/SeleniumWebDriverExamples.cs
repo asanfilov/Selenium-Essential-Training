@@ -1,18 +1,15 @@
 ﻿using System;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using Xunit;
 
 namespace SeleniumTraining
 {
-    public class SeleniumWebDriverExamples
+    public class SeleniumWebDriverExamples : TestsBase
     {
         [Fact]
         public void ChromeSession()
         {
-            IWebDriver driver = new ChromeDriver();
-
             driver.Navigate().GoToUrl("https://google.com");
 
             string title = driver.Title;
@@ -31,14 +28,11 @@ namespace SeleniumTraining
             searchBox = driver.FindElement(By.Name("q"));
             string value = searchBox.GetAttribute("value");
             Assert.Equal("Selenium", value);
-
-            driver.Quit();
         }
 
         [Fact]
         public void Explicit_wait_test()
         {
-            IWebDriver driver = new ChromeDriver();
             driver.Navigate().GoToUrl("https://www.google.com");
             driver.FindElement(By.Name("q")).SendKeys("cheese" + Keys.Enter);
             /* Explicit waits are available to Selenium clients for imperative,

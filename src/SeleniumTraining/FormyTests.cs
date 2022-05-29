@@ -1,37 +1,13 @@
 ﻿using System;
 using System.Linq;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Interactions;
 using Xunit;
-using static System.Threading.Thread;
 
 namespace SeleniumTraining
 {
-    public class FormyTests : IDisposable
+    public class FormyTests : TestsBase
     {
-        private readonly IWebDriver driver;
-
-        public FormyTests()
-        {
-            driver = new ChromeDriver();
-        }
-
-        public void Dispose()
-        {
-            Sleep(2_000);
-            driver.Quit();
-        }
-
-        #region Helper methods
-
-        private IWebElement FindElementById(string id)
-        {
-            return driver.FindElement(By.Id(id));
-        }
-
-        #endregion Helper methods
-
         [Fact]
         [Trait("Exercise", "Shows how to click a button in alert https://www.linkedin.com/learning/selenium-essential-training/switch-to-alert")]
         public void SwitchToAlert()
