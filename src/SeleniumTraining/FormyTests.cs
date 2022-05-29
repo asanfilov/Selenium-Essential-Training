@@ -115,7 +115,7 @@ namespace SeleniumTraining
 
         [Fact]
         [Trait("Exercise", "https://www.linkedin.com/learning/selenium-essential-training/dropdown-menus")]
-        public void Dropdown_option_can_be_selected()
+        public void Dropdown_list_item_click_test()
         {
             driver.Navigate().GoToUrl("https://formy-project.herokuapp.com/dropdown");
             IWebElement dropDown = FindElementById("dropdownMenuButton");
@@ -124,8 +124,8 @@ namespace SeleniumTraining
             //Watch 'Using wildcards' exercise at 0:45
             var options = driver.FindElements(By.CssSelector("div.dropdown-menu.show a"));
             Assert.Equal(15, options.Count);
-            IWebElement selected = options.First(o => o.Text.Equals("Key and Mouse Press"));
-            selected.Click();
+            IWebElement item = options.First(o => o.Text.Equals("Key and Mouse Press"));
+            item.Click();
 
             Assert.Equal("https://formy-project.herokuapp.com/keypress", driver.Url);
         }
