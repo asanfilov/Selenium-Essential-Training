@@ -102,13 +102,11 @@ namespace SeleniumTraining
 
         [Fact]
         [Trait("Exercise", "https://www.linkedin.com/learning/selenium-essential-training/date-pickers")]
-        public void Datepicker()
+        public void DatepickerTest()
         {
             driver.Navigate().GoToUrl("https://formy-project.herokuapp.com/datepicker");
             IWebElement dateInput = FindElementById("datepicker");
-            string dateFormat = dateInput.GetAttribute("placeholder");
-            string today = DateTime.Today.ToString(dateFormat.ToMDYdateFormat());
-
+            string today = DateTime.Today.ToString("MM/dd/yyyy");
             dateInput.SendKeys(today);
             dateInput.SendKeys(Keys.Return);//Keys.Enter also works
 
@@ -130,17 +128,6 @@ namespace SeleniumTraining
             selected.Click();
 
             Assert.Equal("https://formy-project.herokuapp.com/keypress", driver.Url);
-        }
-    }
-
-    public static class StringExtensions
-    {
-        public const string MDY = "MM/dd/yyyy";
-
-        public static string ToMDYdateFormat(this string format)
-        {
-            if (string.IsNullOrEmpty(format)) return StringExtensions.MDY;
-            else return format.ToLower().Replace("mm", "MM");
         }
     }
 }
