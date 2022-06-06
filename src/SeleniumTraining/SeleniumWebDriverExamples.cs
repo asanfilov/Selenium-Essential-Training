@@ -5,7 +5,7 @@ using Xunit;
 
 namespace SeleniumTraining
 {
-    public class SeleniumWebDriverExamples : TestsBase
+    public class SeleniumWebDriverExamples : BaseSeleniumTest
     {
         [Fact]
         public void ChromeSession()

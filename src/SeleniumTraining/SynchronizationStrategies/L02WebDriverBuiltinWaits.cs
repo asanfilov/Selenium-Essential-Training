@@ -4,7 +4,7 @@ using Xunit;
 
 namespace SeleniumTraining.SynchronizationStrategies
 {
-    public class L02WebDriverBuiltinWaits : TestsBase
+    public class L02WebDriverBuiltinWaits : BaseSeleniumTest
     {
         private const string baseUrl = "https://eviltester.github.io/synchole/";
 

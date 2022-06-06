@@ -6,7 +6,7 @@ using Xunit;
 
 namespace SeleniumTraining
 {
-    public class FormyTests : TestsBase
+    public class FormyTests : BaseSeleniumTest
     {
         [Fact]
         [Trait("Exercise", "Shows how to click a button in alert https://www.linkedin.com/learning/selenium-essential-training/switch-to-alert")]

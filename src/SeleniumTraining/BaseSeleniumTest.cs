@@ -4,11 +4,11 @@ using OpenQA.Selenium.Chrome;
 
 namespace SeleniumTraining
 {
-    public class TestsBase : IDisposable
+    public abstract class BaseSeleniumTest : IDisposable
     {
         protected readonly IWebDriver driver;
 
-        public TestsBase()
+        public BaseSeleniumTest()
         {
             driver = new ChromeDriver();
         }
