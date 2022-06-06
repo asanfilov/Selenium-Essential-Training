@@ -52,5 +52,22 @@ namespace SeleniumTraining.SynchronizationStrategies
 
             Assert.EndsWith("/about.html", driver.Url);
         }
+
+        [Fact]
+        public void Collapseable_div_change_heading_text_using_JavaScriptExecutor()
+        {
+            driver.Navigate().GoToUrl("https://eviltester.github.io/synchole/collapseable.html");
+            By headingBy = By.CssSelector("section.synchole > h2");
+            IWebElement heading = driver.FindElement(headingBy);
+            Assert.Equal("SyncHole", heading.Text);
+
+            const string newText = "My new heading text";
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            jse.ExecuteScript("arguments[0].innerText=arguments[1];",
+                              heading, newText);
+
+            heading = driver.FindElement(headingBy);
+            Assert.Equal(newText, heading.Text);
+        }
     }
 }
