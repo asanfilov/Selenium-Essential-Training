@@ -1,13 +1,15 @@
 ﻿using System;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace SeleniumTraining.SynchronizationStrategies
 {
-    public class L03ImplicitWaitTest : BaseSeleniumTestWithConsoleLog
+    public class ImplicitVsExplicitWaitTests : BaseSeleniumTestWithConsoleLog
     {
-        public L03ImplicitWaitTest(ITestOutputHelper output) : base(output)
+        public ImplicitVsExplicitWaitTests(ITestOutputHelper output) : base(output)
         {
         }
 
@@ -44,7 +46,7 @@ namespace SeleniumTraining.SynchronizationStrategies
         }
 
         [Fact]
-        public void Harder_To_Sync_buttons_click_exercise()
+        public void Harder_To_Sync_buttons_click_exercise_test_fails()
         {
             driver.Navigate().GoToUrl("https://eviltester.github.io/synchole/buttons.html");
             /*In this scenario, the ImplicitWait strategy will not help: the buttons are
@@ -79,6 +81,32 @@ namespace SeleniumTraining.SynchronizationStrategies
 
             Log("Asserting...");
             Assert.Equal("All Buttons Clicked", FindElementById("easybuttonmessage").Text);
+        }
+
+        [Fact]
+        public void Harder_To_Sync_buttons_click_exercise_test_passes()
+        {
+            driver.Navigate().GoToUrl("https://eviltester.github.io/synchole/buttons.html");
+            Log("Begin");
+
+            ClickHarderToSyncButton(By.Id("button00"));
+            ClickHarderToSyncButton(By.Id("button01"));
+            ClickHarderToSyncButton(By.Id("button02"));
+            ClickHarderToSyncButton(By.Id("button03"));
+
+            Log("Asserting...");
+            Assert.Equal("All Buttons Clicked", FindElementById("buttonmessage").Text);
+        }
+
+        private void ClickHarderToSyncButton(By locator)
+        {
+            /* Set the highest timeout as seen in the JavaScript code of this page:
+                https://eviltester.github.io/synchole/buttons.html
+                to give the WebDriverWait enough time:  */
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromMilliseconds(6000));
+            IWebElement button = wait.Until(ExpectedConditions.ElementToBeClickable(locator));
+            button.Click();//works even if the button is disabled
+            Log($"{locator.Criteria}.Click()");
         }
     }
 }
