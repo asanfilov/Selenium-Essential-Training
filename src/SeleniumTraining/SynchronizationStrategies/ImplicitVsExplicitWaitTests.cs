@@ -87,23 +87,22 @@ namespace SeleniumTraining.SynchronizationStrategies
         public void Harder_To_Sync_buttons_click_exercise_test_passes()
         {
             driver.Navigate().GoToUrl("https://eviltester.github.io/synchole/buttons.html");
+            /* Set the highest timeout as seen in the JavaScript code of this page
+                to give the WebDriverWait enough time:  */
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromMilliseconds(6000));
             Log("Begin");
 
-            ClickHarderToSyncButton(By.Id("button00"));
-            ClickHarderToSyncButton(By.Id("button01"));
-            ClickHarderToSyncButton(By.Id("button02"));
-            ClickHarderToSyncButton(By.Id("button03"));
+            ClickHarderToSyncButton(wait, By.Id("button00"));
+            ClickHarderToSyncButton(wait, By.Id("button01"));
+            ClickHarderToSyncButton(wait, By.Id("button02"));
+            ClickHarderToSyncButton(wait, By.Id("button03"));
 
             Log("Asserting...");
             Assert.Equal("All Buttons Clicked", FindElementById("buttonmessage").Text);
         }
 
-        private void ClickHarderToSyncButton(By locator)
+        private void ClickHarderToSyncButton(WebDriverWait wait, By locator)
         {
-            /* Set the highest timeout as seen in the JavaScript code of this page:
-                https://eviltester.github.io/synchole/buttons.html
-                to give the WebDriverWait enough time:  */
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromMilliseconds(6000));
             IWebElement button = wait.Until(ExpectedConditions.ElementToBeClickable(locator));
             button.Click();//works even if the button is disabled
             Log($"{locator.Criteria}.Click()");
