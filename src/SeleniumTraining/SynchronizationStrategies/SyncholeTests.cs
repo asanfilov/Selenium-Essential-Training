@@ -36,5 +36,21 @@ namespace SeleniumTraining.SynchronizationStrategies
             sectionLink.Click();
             Assert.EndsWith("/about.html", driver.Url);
         }
+
+        [Fact]
+        public void Collapseable_div_expand_and_click_link_using_custom_ExpectedCondition()
+        {
+            driver.Navigate().GoToUrl("https://eviltester.github.io/synchole/collapseable.html");
+            By expandingSection = By.CssSelector("section.condense");
+            IWebElement section = driver.FindElement(expandingSection);
+            section.Click();
+
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+                .Until(CustomExpectedConditions.ElementFinishedExpanding(expandingSection));
+            By linkBy = By.CssSelector("a#aboutlink");
+            driver.FindElement(linkBy).Click();
+
+            Assert.EndsWith("/about.html", driver.Url);
+        }
     }
 }
