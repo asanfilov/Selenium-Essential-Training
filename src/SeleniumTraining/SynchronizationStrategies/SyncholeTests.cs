@@ -69,5 +69,26 @@ namespace SeleniumTraining.SynchronizationStrategies
             heading = driver.FindElement(headingBy);
             Assert.Equal(newText, heading.Text);
         }
+
+        [Fact]
+        public void Messages_waiting_example_using_ExecuteScript_and_ExpectedConditions()
+        {
+            driver.Navigate().GoToUrl("https://eviltester.github.io/synchole/messages.html");
+
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
+            /* First, will wait for the page internal script to finish processing - keep inspecting JS variables:
+             * if they are publicly accessible from JS, they can be used in combination with JavaScriptExecutor
+             * to help synchronize the state.   */
+            string js = "return window.totalMessagesReceived > 0 && window.renderingQueueCount == 0 ? 'true' : 'false'";
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            wait.Until(d => jse.ExecuteScript(js).Equals("true"));
+
+            //Second, wait for the page element to obtain desired state
+            const string expected = "Message Count: 0 : 0";
+            wait.Until(ExpectedConditions.TextToBePresentInElementLocated(
+                            By.Id("messagecount"), expected));
+
+            Assert.Equal(expected, FindElementById("messagecount").Text);
+        }
     }
 }
