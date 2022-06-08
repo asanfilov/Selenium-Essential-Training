@@ -1,7 +1,7 @@
 ﻿using System;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;//WebDriverWait
-using SeleniumExtras.WaitHelpers;//ExpectedConditions
+using SeleniumExtras.WaitHelpers;//ExpectedConditions. https://github.com/DotNetSeleniumTools/DotNetSeleniumExtras/blob/master/src/WaitHelpers/ExpectedConditions.cs
 using Xunit;
 
 namespace SeleniumTraining.SynchronizationStrategies
@@ -86,6 +86,27 @@ namespace SeleniumTraining.SynchronizationStrategies
             //Second, wait for the page element to obtain desired state
             const string expected = "Message Count: 0 : 0";
             wait.Until(ExpectedConditions.TextToBePresentInElementLocated(
+                            By.Id("messagecount"), expected));
+
+            Assert.Equal(expected, FindElementById("messagecount").Text);
+        }
+
+        [Fact]
+        public void Messages_waiting_example_using_ExecuteScript_and_ExpectedConditions_refactored()
+        {
+            driver.Navigate().GoToUrl("https://eviltester.github.io/synchole/messages.html");
+
+            /*Use a custom ForJavaScriptToEvaluateTo method to catch exceptions caused by invalid JavaScript code:
+                string invalidJS = "window; > 0 ";
+            */
+            string validJS = "window.totalMessagesReceived > 0 && window.renderingQueueCount == 0;";
+            GenericJSWait jsWait = new GenericJSWait(driver, TimeSpan.FromSeconds(20));
+            jsWait.ForJavaScriptToEvaluateTo(validJS, true);
+
+            //Second, wait for the page element to obtain desired state
+            const string expected = "Message Count: 0 : 0";
+            new WebDriverWait(driver, TimeSpan.FromSeconds(20))
+                .Until(ExpectedConditions.TextToBePresentInElementLocated(
                             By.Id("messagecount"), expected));
 
             Assert.Equal(expected, FindElementById("messagecount").Text);
