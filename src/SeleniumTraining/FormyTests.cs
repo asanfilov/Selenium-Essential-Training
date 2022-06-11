@@ -12,7 +12,7 @@ namespace SeleniumTraining
         [Trait("Exercise", "Shows how to click a button in alert https://www.linkedin.com/learning/selenium-essential-training/switch-to-alert")]
         public void SwitchToAlert()
         {
-            driver.Navigate().GoToUrl("https://formy-project.herokuapp.com/switch-window");
+            GoToPage("https://formy-project.herokuapp.com/switch-window");
             IWebElement openAlert = FindElementById("alert-button");
             Sleep(1_000);
             openAlert.Click();
@@ -26,7 +26,7 @@ namespace SeleniumTraining
         [Trait("Exercise", "Shows how to close a modal https://www.linkedin.com/learning/selenium-essential-training/executing-javascript-commands")]
         public void ExecuteJavaScript()
         {
-            driver.Navigate().GoToUrl("https://formy-project.herokuapp.com/modal");
+            GoToPage("https://formy-project.herokuapp.com/modal");
 
             IWebElement modalButton = FindElementById("modal-button");
             Sleep(1_000);
@@ -42,7 +42,7 @@ namespace SeleniumTraining
         [Trait("Exercise", "https://www.linkedin.com/learning/selenium-essential-training/keyboard-and-mouse-input")]
         public void KeyboardAndMouseInput()
         {
-            driver.Navigate().GoToUrl("https://formy-project.herokuapp.com/keypress");
+            GoToPage("https://formy-project.herokuapp.com/keypress");
             IWebElement nameInput = FindElementById("name");
 
             nameInput.Click();
@@ -63,7 +63,7 @@ namespace SeleniumTraining
         [Trait("Exercise", "https://www.linkedin.com/learning/selenium-essential-training/scroll")]
         public void ScrollToElement()
         {
-            driver.Navigate().GoToUrl("https://formy-project.herokuapp.com/scroll");
+            GoToPage("https://formy-project.herokuapp.com/scroll");
             IWebElement nameInput = FindElementById("name");
             IWebElement dateInput = FindElementById("date");
             Sleep(2_000);
@@ -80,7 +80,7 @@ namespace SeleniumTraining
         [Trait("Exercise", "https://www.linkedin.com/learning/selenium-essential-training/date-pickers")]
         public void DatepickerTest()
         {
-            driver.Navigate().GoToUrl("https://formy-project.herokuapp.com/datepicker");
+            GoToPage("https://formy-project.herokuapp.com/datepicker");
             IWebElement dateInput = FindElementById("datepicker");
             string today = DateTime.Today.ToString("MM/dd/yyyy");
             dateInput.SendKeys(today);
@@ -93,7 +93,7 @@ namespace SeleniumTraining
         [Trait("Exercise", "https://www.linkedin.com/learning/selenium-essential-training/dropdown-menus")]
         public void Dropdown_list_item_click_test()
         {
-            driver.Navigate().GoToUrl("https://formy-project.herokuapp.com/dropdown");
+            GoToPage("https://formy-project.herokuapp.com/dropdown");
             IWebElement dropDown = FindElementById("dropdownMenuButton");
 
             dropDown.Click();

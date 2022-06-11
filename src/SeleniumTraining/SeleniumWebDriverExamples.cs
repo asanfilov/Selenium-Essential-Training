@@ -10,7 +10,7 @@ namespace SeleniumTraining
         [Fact]
         public void ChromeSession()
         {
-            driver.Navigate().GoToUrl("https://google.com");
+            GoToPage("https://google.com");
 
             string title = driver.Title;
             Assert.Equal("Google", title);
@@ -33,7 +33,7 @@ namespace SeleniumTraining
         [Fact]
         public void Explicit_wait_test()
         {
-            driver.Navigate().GoToUrl("https://www.google.com");
+            GoToPage("https://www.google.com");
             driver.FindElement(By.Name("q")).SendKeys("cheese" + Keys.Enter);
             /* Explicit waits are available to Selenium clients for imperative,
             procedural languages. They allow your code to halt program execution,

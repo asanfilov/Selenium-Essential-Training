@@ -11,7 +11,7 @@ namespace SeleniumTraining.SynchronizationStrategies
         [Fact]
         public void Collapseable_div_expand_and_click_link_using_WebDriverWait()
         {
-            driver.Navigate().GoToUrl("https://eviltester.github.io/synchole/collapseable.html");
+            GoToPage(SyncholePages.Collapseable);
             IWebElement section = driver.FindElement(By.CssSelector("section.condense"));
             section.Click();
 
@@ -40,7 +40,7 @@ namespace SeleniumTraining.SynchronizationStrategies
         [Fact]
         public void Collapseable_div_expand_and_click_link_using_custom_ExpectedCondition()
         {
-            driver.Navigate().GoToUrl("https://eviltester.github.io/synchole/collapseable.html");
+            GoToPage(SyncholePages.Collapseable);
             By expandingSection = By.CssSelector("section.condense");
             IWebElement section = driver.FindElement(expandingSection);
             section.Click();
@@ -56,7 +56,7 @@ namespace SeleniumTraining.SynchronizationStrategies
         [Fact]
         public void Collapseable_div_change_heading_text_using_JavaScriptExecutor()
         {
-            driver.Navigate().GoToUrl("https://eviltester.github.io/synchole/collapseable.html");
+            GoToPage(SyncholePages.Collapseable);
             By headingBy = By.CssSelector("section.synchole > h2");
             IWebElement heading = driver.FindElement(headingBy);
             Assert.Equal("SyncHole", heading.Text);
@@ -73,7 +73,7 @@ namespace SeleniumTraining.SynchronizationStrategies
         [Fact]
         public void Messages_waiting_example_using_ExecuteScript_and_ExpectedConditions()
         {
-            driver.Navigate().GoToUrl("https://eviltester.github.io/synchole/messages.html");
+            GoToPage(SyncholePages.Messages);
 
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
             /* First, will wait for the page internal script to finish processing - keep inspecting JS variables:
@@ -94,7 +94,7 @@ namespace SeleniumTraining.SynchronizationStrategies
         [Fact]
         public void Messages_waiting_example_using_ExecuteScript_and_ExpectedConditions_refactored()
         {
-            driver.Navigate().GoToUrl("https://eviltester.github.io/synchole/messages.html");
+            GoToPage(SyncholePages.Messages);
 
             /*Use a custom ForJavaScriptToEvaluateTo method to catch exceptions caused by invalid JavaScript code:
                 string invalidJS = "window; > 0 ";

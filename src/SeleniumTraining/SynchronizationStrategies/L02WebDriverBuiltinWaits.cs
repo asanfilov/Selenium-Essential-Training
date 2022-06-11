@@ -6,17 +6,10 @@ namespace SeleniumTraining.SynchronizationStrategies
 {
     public class L02WebDriverBuiltinWaits : BaseSeleniumTest
     {
-        private const string baseUrl = "https://eviltester.github.io/synchole/";
-
-        private void GoToPage(string page)
-        {
-            driver.Navigate().GoToUrl(baseUrl + page);
-        }
-
         [Fact]
         public void No_need_to_wait_for_DOM_contents_on_page_load()
         {
-            GoToPage("collapseable.html");
+            GoToPage(SyncholePages.Collapseable);
             //WebDriver automatically waits for the page to load
             Assert.Equal("SyncHole", driver.FindElement(By.CssSelector("h2")).Text);
         }
@@ -24,7 +17,7 @@ namespace SeleniumTraining.SynchronizationStrategies
         [Fact]
         public void Form_submit_will_wait_for_page_to_load()
         {
-            GoToPage("form.html");
+            GoToPage(SyncholePages.Form);
 
             IWebElement username = driver.FindElement(By.Name("username"));
             username.SendKeys("Bob");

@@ -28,5 +28,10 @@ namespace SeleniumTraining
         {
             return driver.FindElement(By.Id(id));
         }
+
+        protected void GoToPage(string page)
+        {
+            driver.Navigate().GoToUrl(page);
+        }
     }
 }

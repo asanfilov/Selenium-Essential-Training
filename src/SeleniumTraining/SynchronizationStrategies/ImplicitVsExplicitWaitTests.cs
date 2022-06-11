@@ -16,7 +16,7 @@ namespace SeleniumTraining.SynchronizationStrategies
         [Fact]
         public void Easy_To_Sync_buttons_click_exercise()
         {
-            driver.Navigate().GoToUrl("https://eviltester.github.io/synchole/buttons.html");
+            GoToPage(SyncholePages.Buttons);
             //Guess a timeout that is high enough for the test to pass:
             int timeoutInSeconds = 5;
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(timeoutInSeconds);
@@ -48,7 +48,7 @@ namespace SeleniumTraining.SynchronizationStrategies
         [Fact]
         public void Harder_To_Sync_buttons_click_exercise_test_fails()
         {
-            driver.Navigate().GoToUrl("https://eviltester.github.io/synchole/buttons.html");
+            GoToPage(SyncholePages.Buttons);
             /*In this scenario, the ImplicitWait strategy will not help: the buttons are
              in the DOM already, but they are initially disabled. So the WebDriver will
              locate and click them all without any waits. If you run the test:
@@ -86,7 +86,7 @@ namespace SeleniumTraining.SynchronizationStrategies
         [Fact]
         public void Harder_To_Sync_buttons_click_exercise_test_passes()
         {
-            driver.Navigate().GoToUrl("https://eviltester.github.io/synchole/buttons.html");
+            GoToPage(SyncholePages.Buttons);
             /* Set the highest timeout as seen in the JavaScript code of this page
                 to give the WebDriverWait enough time:  */
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromMilliseconds(6000));
