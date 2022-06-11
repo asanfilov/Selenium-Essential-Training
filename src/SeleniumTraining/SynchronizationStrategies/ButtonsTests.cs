@@ -9,6 +9,11 @@ namespace SeleniumTraining.SynchronizationStrategies
 {
     public class ButtonsTests : BaseSeleniumTestWithConsoleLog
     {
+        private readonly By harderButton0 = By.Id("button00");
+        private readonly By harderButton1 = By.Id("button01");
+        private readonly By harderButton2 = By.Id("button02");
+        private readonly By harderButton3 = By.Id("button03");
+
         public ButtonsTests(ITestOutputHelper output) : base(output)
         {
         }
@@ -64,18 +69,18 @@ namespace SeleniumTraining.SynchronizationStrategies
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(timeoutInSeconds);
             Log($"Set ImplicitWait to {timeoutInSeconds} seconds.");
 
-            IWebElement button00 = FindElementById("button00");
+            IWebElement button00 = driver.FindElement(harderButton0);
             button00.Click();
 
-            IWebElement button01 = FindElementById("button01");
+            IWebElement button01 = driver.FindElement(harderButton1);
             button01.Click();//works even if the button is disabled
             Log("button01.Click()");
 
-            IWebElement button02 = FindElementById("button02");
+            IWebElement button02 = driver.FindElement(harderButton2);
             button02.Click();
             Log("button02.Click()");
 
-            IWebElement button03 = FindElementById("button03");
+            IWebElement button03 = driver.FindElement(harderButton3);
             button03.Click();
             Log("button03.Click()");
 
@@ -92,10 +97,10 @@ namespace SeleniumTraining.SynchronizationStrategies
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromMilliseconds(6000));
             Log("Begin");
 
-            ClickHarderToSyncButton(wait, By.Id("button00"));
-            ClickHarderToSyncButton(wait, By.Id("button01"));
-            ClickHarderToSyncButton(wait, By.Id("button02"));
-            ClickHarderToSyncButton(wait, By.Id("button03"));
+            ClickHarderToSyncButton(wait, harderButton0);
+            ClickHarderToSyncButton(wait, harderButton1);
+            ClickHarderToSyncButton(wait, harderButton2);
+            ClickHarderToSyncButton(wait, harderButton3);
 
             Log("Asserting...");
             Assert.Equal("All Buttons Clicked", FindElementById("buttonmessage").Text);
