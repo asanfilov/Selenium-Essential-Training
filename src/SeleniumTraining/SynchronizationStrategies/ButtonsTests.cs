@@ -49,11 +49,12 @@ namespace SeleniumTraining.SynchronizationStrategies
         public void Harder_To_Sync_buttons_click_exercise_test_fails()
         {
             GoToPage(SyncholePages.Buttons);
-            /*In this scenario, the ImplicitWait strategy will not help: the buttons are
-             in the DOM already, but they are initially disabled. So the WebDriver will
-             locate and click them all without any waits. If you run the test:
+            /* In this scenario, the ImplicitWait strategy will not help:
+            harder to sync buttons are already in the DOM, but they are
+            initially disabled when the page loads. So the WebDriver will locate
+            and click them all without any waits. If you run the test:
              dotnet test --logger "console;verbosity=detailed" --filter Harder_To_Sync_buttons_click_exercise
-             you will see no delay between Clicks:
+            you will see no delay between Clicks:
              2022-06-06 12:53:22Z|Set ImplicitWait to 10 seconds.
              2022-06-06 12:53:23Z|button01.Click()
              2022-06-06 12:53:23Z|button02.Click()
@@ -133,6 +134,14 @@ namespace SeleniumTraining.SynchronizationStrategies
         }
     }
 
+    /// <summary>
+    /// Extends
+    /// <see href="https://www.selenium.dev/selenium/docs/api/dotnet/html/T_OpenQA_Selenium_Support_UI_SlowLoadableComponent_1.htm">SlowLoadableComponent</see>
+    /// from namespace OpenQA.Selenium.Support.UI
+    /// <para>
+    /// Benefit: all the work—synchronization, locating, built-in waiting—is done in the button component itself.
+    /// </para>
+    /// </summary>
     internal class HarderToSyncButton : SlowLoadableComponent<HarderToSyncButton>
     {
         private readonly IWebDriver driver;
@@ -154,20 +163,17 @@ namespace SeleniumTraining.SynchronizationStrategies
 
         public void Click() => driver.FindElement(locator).Click();
 
-        #region Generated overrides
-
         protected override bool EvaluateLoadedStatus()
         {
             IWebElement elem = driver.FindElement(locator);
             return elem.Displayed && elem.Enabled;
         }
 
-        /*No neeed to implement the Load() method since harder to click buttons
-         are already in the DOM when the page loads  */
+        /* No neeed to implement the Load() method:
+            harder to sync buttons are already in the DOM, but they are
+            initially disabled when the page loads. */
 
         protected override void ExecuteLoad()
         { }
-
-        #endregion Generated overrides
     }
 }
