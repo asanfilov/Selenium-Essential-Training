@@ -7,9 +7,9 @@ using Xunit.Abstractions;
 
 namespace SeleniumTraining.SynchronizationStrategies
 {
-    public class ImplicitVsExplicitWaitTests : BaseSeleniumTestWithConsoleLog
+    public class ButtonsTests : BaseSeleniumTestWithConsoleLog
     {
-        public ImplicitVsExplicitWaitTests(ITestOutputHelper output) : base(output)
+        public ButtonsTests(ITestOutputHelper output) : base(output)
         {
         }
 
