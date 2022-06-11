@@ -9,11 +9,6 @@ namespace SeleniumTraining.SynchronizationStrategies
 {
     public class ButtonsTests : BaseSeleniumTestWithConsoleLog
     {
-        private readonly By harderButton0 = By.Id("button00");
-        private readonly By harderButton1 = By.Id("button01");
-        private readonly By harderButton2 = By.Id("button02");
-        private readonly By harderButton3 = By.Id("button03");
-
         public ButtonsTests(ITestOutputHelper output) : base(output)
         {
         }
@@ -69,18 +64,18 @@ namespace SeleniumTraining.SynchronizationStrategies
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(timeoutInSeconds);
             Log($"Set ImplicitWait to {timeoutInSeconds} seconds.");
 
-            IWebElement button00 = driver.FindElement(harderButton0);
+            IWebElement button00 = driver.FindElement(HarderToSyncButton.Start);
             button00.Click();
 
-            IWebElement button01 = driver.FindElement(harderButton1);
+            IWebElement button01 = driver.FindElement(HarderToSyncButton.One);
             button01.Click();//works even if the button is disabled
             Log("button01.Click()");
 
-            IWebElement button02 = driver.FindElement(harderButton2);
+            IWebElement button02 = driver.FindElement(HarderToSyncButton.Two);
             button02.Click();
             Log("button02.Click()");
 
-            IWebElement button03 = driver.FindElement(harderButton3);
+            IWebElement button03 = driver.FindElement(HarderToSyncButton.Three);
             button03.Click();
             Log("button03.Click()");
 
@@ -97,10 +92,10 @@ namespace SeleniumTraining.SynchronizationStrategies
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromMilliseconds(6000));
             Log("Begin");
 
-            ClickHarderToSyncButton(wait, harderButton0);
-            ClickHarderToSyncButton(wait, harderButton1);
-            ClickHarderToSyncButton(wait, harderButton2);
-            ClickHarderToSyncButton(wait, harderButton3);
+            ClickHarderToSyncButton(wait, HarderToSyncButton.Start);
+            ClickHarderToSyncButton(wait, HarderToSyncButton.One);
+            ClickHarderToSyncButton(wait, HarderToSyncButton.Two);
+            ClickHarderToSyncButton(wait, HarderToSyncButton.Three);
 
             Log("Asserting...");
             Assert.Equal("All Buttons Clicked", FindElementById("buttonmessage").Text);
@@ -118,19 +113,19 @@ namespace SeleniumTraining.SynchronizationStrategies
         {// Example: WebDriver synchronized components
             GoToPage(SyncholePages.Buttons);
 
-            HarderToSyncButton startButton = new HarderToSyncButton(driver, harderButton0);
+            HarderToSyncButton startButton = new HarderToSyncButton(driver, HarderToSyncButton.Start);
             startButton.Load();
             startButton.Click();
 
-            HarderToSyncButton buttonOne = new HarderToSyncButton(driver, harderButton1);
+            HarderToSyncButton buttonOne = new HarderToSyncButton(driver, HarderToSyncButton.One);
             buttonOne.Load();
             buttonOne.Click();
 
-            HarderToSyncButton buttonTwo = new HarderToSyncButton(driver, harderButton2);
+            HarderToSyncButton buttonTwo = new HarderToSyncButton(driver, HarderToSyncButton.Two);
             buttonTwo.Load();
             buttonTwo.Click();
 
-            HarderToSyncButton buttonThree = new HarderToSyncButton(driver, harderButton3);
+            HarderToSyncButton buttonThree = new HarderToSyncButton(driver, HarderToSyncButton.Three);
             buttonThree.Load();
             buttonThree.Click();
 
@@ -144,6 +139,11 @@ namespace SeleniumTraining.SynchronizationStrategies
         private readonly By locator;
 
         public static readonly TimeSpan TimeOut = TimeSpan.FromSeconds(10);
+
+        public static readonly By Start = By.Id("button00");
+        public static readonly By One = By.Id("button01");
+        public static readonly By Two = By.Id("button02");
+        public static readonly By Three = By.Id("button03");
 
         public HarderToSyncButton(IWebDriver driver, By locator) : base(TimeOut)
         {
