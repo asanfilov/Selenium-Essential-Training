@@ -23,7 +23,7 @@ namespace SeleniumTraining.SynchronizationStrategies
         {
             GoToPage(SyncholePages.Buttons);
             //Guess a timeout that is high enough for the test to pass:
-            int timeoutInSeconds = 5;
+            const int timeoutInSeconds = 5;
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(timeoutInSeconds);
             Log($"Set ImplicitWait to {timeoutInSeconds} seconds.");
 
@@ -65,7 +65,7 @@ namespace SeleniumTraining.SynchronizationStrategies
              2022-06-06 12:53:24Z|button03.Click()
              2022-06-06 12:53:24Z|Asserting... (Assert.Equal will fail)
              */
-            int timeoutInSeconds = 10;
+            const int timeoutInSeconds = 10;
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(timeoutInSeconds);
             Log($"Set ImplicitWait to {timeoutInSeconds} seconds.");
 
@@ -112,5 +112,62 @@ namespace SeleniumTraining.SynchronizationStrategies
             button.Click();//works even if the button is disabled
             Log($"{locator.Criteria}.Click()");
         }
+
+        [Fact]
+        public void SlowLoadableComponent_class_demo()
+        {// Example: WebDriver synchronized components
+            GoToPage(SyncholePages.Buttons);
+
+            HarderToSyncButton startButton = new HarderToSyncButton(driver, harderButton0);
+            startButton.Load();
+            startButton.Click();
+
+            HarderToSyncButton buttonOne = new HarderToSyncButton(driver, harderButton1);
+            buttonOne.Load();
+            buttonOne.Click();
+
+            HarderToSyncButton buttonTwo = new HarderToSyncButton(driver, harderButton2);
+            buttonTwo.Load();
+            buttonTwo.Click();
+
+            HarderToSyncButton buttonThree = new HarderToSyncButton(driver, harderButton3);
+            buttonThree.Load();
+            buttonThree.Click();
+
+            Assert.Equal("All Buttons Clicked", FindElementById("buttonmessage").Text);
+        }
+    }
+
+    internal class HarderToSyncButton : SlowLoadableComponent<HarderToSyncButton>
+    {
+        private readonly IWebDriver driver;
+        private readonly By locator;
+
+        public static readonly TimeSpan TimeOut = TimeSpan.FromSeconds(10);
+
+        public HarderToSyncButton(IWebDriver driver, By locator) : base(TimeOut)
+        {
+            this.driver = driver;
+            this.locator = locator;
+            SleepInterval = TimeSpan.FromMilliseconds(1000);//how often EvaluateLoadedStatus will be called
+        }
+
+        public void Click() => driver.FindElement(locator).Click();
+
+        #region Generated overrides
+
+        protected override bool EvaluateLoadedStatus()
+        {
+            IWebElement elem = driver.FindElement(locator);
+            return elem.Displayed && elem.Enabled;
+        }
+
+        /*No neeed to implement the Load() method since harder to click buttons
+         are already in the DOM when the page loads  */
+
+        protected override void ExecuteLoad()
+        { }
+
+        #endregion Generated overrides
     }
 }
